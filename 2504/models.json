@@ -1,0 +1,4 @@
+{
+  "qwen-2.5": ["agent01", "agent02"],
+  "gpt-4": ["agent03", "agent04"]
+}

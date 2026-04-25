@@ -1,0 +1,26 @@
+package com.lgcns.test;
+
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.servlet.ServletHandler;
+
+public class RunManager {
+
+    public static void main(String[] args) throws Exception {
+        String modelsFile = args.length > 0 ? args[0] : "models.json";
+        ModelStore.load(modelsFile);
+
+        Server server = new Server();
+        ServerConnector http = new ServerConnector(server);
+        http.setHost("127.0.0.1");
+        http.setPort(8080);
+        server.addConnector(http);
+
+        ServletHandler handler = new ServletHandler();
+        handler.addServletWithMapping(MyServlet.class, "/*");
+        server.setHandler(handler);
+
+        server.start();
+        server.join();
+    }
+}
